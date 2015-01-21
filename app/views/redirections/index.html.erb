@@ -1,0 +1,29 @@
+<div class="row">
+    <%= form_tag update_all_redirections_path, :method => :put do %>
+        <h4 class="col-md-8">Locations</h4>
+        <div class="col-md-2">
+        <%= link_to 'Add country', new_redirection_path, class:"btn btn-default pull-right" %>
+        </div>
+        <div class="col-md-2">
+		    <%= submit_tag "Update",class: "btn btn-default" %>
+        </div>
+    </div>
+        <table class="table">
+            <tr>
+                <th>Country</th>
+                <th>Site</th> 
+                <th>Active</th>
+            </tr>
+            <% for location in @redirections %>
+                 <tr>
+                    <td><%= location.country %></td>
+                    <td><%= url_field_tag "hyperlink_ids[#{location.id}]", location.hyperlink%></td>
+                    <td><%= check_box_tag "active_ids[]",location.id,location.active %></td>
+                    <td><%= link_to 'Remove', redirection_path(location),
+                                      method: :delete,
+                                      data: { confirm: 'Are you sure?' } %></td>
+                </tr>
+			<%end%>
+        </table>
+     <% end %>
+</div>
